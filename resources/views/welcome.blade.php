@@ -9,15 +9,18 @@
             <div id="dropin-container"></div>
             <input type="submit" />
             <input type="hidden" id="nonce" name="payment_method_nonce"/>
+            <input type="hidden" id="clientToken" value="{{ $clientToken }}">
         </form>
+
       
         {{-- braintree script --}}
         <script type="text/javascript">
 
             const form = document.getElementById('payment-form');
+            const clientToken = document.getElementById('clientToken').value;
 
             braintree.dropin.create({
-                authorization: 'sandbox_g42y39zw_348pk9cgf3bgyw2b',
+                authorization: clientToken,
                 container: document.getElementById('dropin-container'),
             }, (error, dropinInstance) => {
 

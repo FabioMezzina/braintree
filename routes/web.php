@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Braintree\Gateway as Gateway;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    
+    $gateway = new Gateway([
+                'environment' => 'sandbox',
+                'merchantId' => 'xyg6km7tjcfh5hkh',
+                'publicKey' => 'qghn6r3vsw6tqbbp',
+                'privateKey' => '7b394a59ad46848440f8dc4171434f52'
+            ]);
+    $clientToken = $gateway->clientToken()->generate();
+    return view('welcome', compact('clientToken'));
 });
